@@ -25,10 +25,10 @@ fn hash_variable_input(input: [Field]) -> Field {
             perm_state[j] = perm_state[j] + input[processed + j];
         }
 
-        println(perm_state);
+        //println(perm_state);
         // Apply permutation (using x5_4 as it handles 4-element state)
-        // perm_state = poseidon2::bn254::perm::x5_4(perm_state);
-        println(perm_state);
+        perm_state = poseidon2::bn254::perm::x5_4(perm_state);
+        //println(perm_state);
 
         processed += chunk_size;
     }
@@ -37,8 +37,7 @@ fn hash_variable_input(input: [Field]) -> Field {
     perm_state[0]
 }
 
-fn main(plains: [Field; 1], result: Field) {
+fn main(plains: [Field; 256]) {
     let hash = hash_variable_input(plains);
     println(hash);
-    assert(hash == 1);
 }

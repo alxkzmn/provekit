@@ -1,0 +1,2 @@
+# No parameters needed - batch size is hardcoded as global constant (256 permutations)
+

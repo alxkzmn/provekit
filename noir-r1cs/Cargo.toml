@@ -72,3 +72,12 @@ test-case.workspace = true
 [[bench]]
 name = "bench"
 harness = false
+
+[[bench]]
+name = "poseidon_var"
+harness = false
+
+
+[[bench]]
+name = "keccak_f_perm"
+harness = false
