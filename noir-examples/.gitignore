@@ -1,2 +1,5 @@
 # Target folders from Noir
 target
+
+# Generated temporary source files for benchmarking
+**/main_*.nr

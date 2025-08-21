@@ -37,7 +37,7 @@ fn hash_variable_input(input: [Field]) -> Field {
     perm_state[0]
 }
 
-fn main(plains: [Field; 256]) {
+fn main(plains: [Field; 1024]) {
     let hash = hash_variable_input(plains);
     println(hash);
 }
