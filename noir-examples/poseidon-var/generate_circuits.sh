@@ -2,8 +2,10 @@
 
 # Generate poseidon circuits with different input sizes
 for log_size in 6 7 8 9; do
-    input_size=$((1 << log_size))
-    echo "Generating poseidon circuit with input_size=$input_size (log_size=$log_size)"
+    # Structural-equivalence with p3: p3 takes 2^log_size states of WIDTH=16,
+    # so Noir must take 16 * 2^log_size field elements and permute in 16-lane chunks.
+    input_size=$((16 << log_size))
+    echo "Generating poseidon-var (structure-equal) with input_size=$input_size (16 * 2^$log_size)"
     
     # Generate random input using Python script for this specific size
     python3 generate_input.py $input_size Prover_${log_size}.toml

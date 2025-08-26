@@ -1,6 +1,6 @@
 use dep::poseidon2;
 
-fn permute_chunks_x5_16(plains: [Field; 512]) -> Field {
+fn permute_chunks_x5_16(plains: [Field]) -> Field {
     let input_size = plains.len();
     // Expect input_size to be a multiple of 16 (64, 128, 256, 512 satisfy this).
     let num_states = input_size / 16;
