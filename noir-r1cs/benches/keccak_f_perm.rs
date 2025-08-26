@@ -15,6 +15,16 @@ fn create_prover_toml(temp_dir: &Path) -> std::io::Result<()> {
 }
 
 #[divan::bench(sample_count = 10, sample_size = 1)]
+fn prove_keccak_f_perm_5(bencher: Bencher) {
+    prove_keccak_f_perm_with_size(bencher, 5);
+}
+
+#[divan::bench(sample_count = 10, sample_size = 1)]
+fn prove_keccak_f_perm_6(bencher: Bencher) {
+    prove_keccak_f_perm_with_size(bencher, 6);
+}
+
+#[divan::bench(sample_count = 10, sample_size = 1)]
 fn prove_keccak_f_perm_7(bencher: Bencher) {
     prove_keccak_f_perm_with_size(bencher, 7);
 }
@@ -22,16 +32,6 @@ fn prove_keccak_f_perm_7(bencher: Bencher) {
 #[divan::bench(sample_count = 10, sample_size = 1)]
 fn prove_keccak_f_perm_8(bencher: Bencher) {
     prove_keccak_f_perm_with_size(bencher, 8);
-}
-
-#[divan::bench(sample_count = 10, sample_size = 1)]
-fn prove_keccak_f_perm_9(bencher: Bencher) {
-    prove_keccak_f_perm_with_size(bencher, 9);
-}
-
-#[divan::bench(sample_count = 10, sample_size = 1)]
-fn prove_keccak_f_perm_10(bencher: Bencher) {
-    prove_keccak_f_perm_with_size(bencher, 10);
 }
 
 fn prove_keccak_f_perm_with_size(bencher: Bencher, log_size: usize) {

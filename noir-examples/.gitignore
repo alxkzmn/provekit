@@ -3,3 +3,4 @@ target
 
 # Generated temporary source files for benchmarking
 **/main_*.nr
+**/Prover_*.toml

@@ -16,9 +16,7 @@ pub enum BinOp {
 }
 
 /// The number of bits that ACIR uses for the inputs and output of the binop.
-// TODO: keccak circuit didn't work with 32 (throwing "Higher order bits are not
-// zero"), and Noir field elements are 64 bits anyways, was this a bug?
-pub const BINOP_BITS: usize = 64;
+pub const BINOP_BITS: usize = 32;
 
 /// The number of bits that used by us for the inputs and output of the binop.
 /// 2x this number of bits is used for the lookup table.

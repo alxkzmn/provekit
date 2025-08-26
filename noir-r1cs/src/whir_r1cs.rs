@@ -24,7 +24,8 @@ use {
     tracing::{info, instrument, warn},
     whir::{
         parameters::{
-            FoldingFactor, MultivariateParameters as GenericMultivariateParameters,
+            default_max_pow, FoldingFactor,
+            MultivariateParameters as GenericMultivariateParameters,
             ProtocolParameters as GenericProtocolParameters, SoundnessType,
         },
         poly_utils::{evals::EvaluationsList, multilinear::MultilinearPoint},
@@ -93,26 +94,34 @@ impl WhirR1CSScheme {
 
     pub fn new_whir_config_for_size(num_variables: usize) -> WhirConfig {
         let mv_params = MultivariateParameters::new(num_variables);
-        // Standardized parameters to align with p3-playground defaults.
-        // WHIR_POW_BITS env var can override PoW difficulty; defaults to 20.
-        let pow_bits: usize = std::env::var("WHIR_POW_BITS")
-            .ok()
-            .and_then(|s| s.parse().ok())
-            .unwrap_or(20);
         let whir_params = ProtocolParameters {
-            initial_statement: true,
-            security_level: 100, // TODO it was 128, reduced to unify with p3-playground settings
-            pow_bits,
-            folding_factor: FoldingFactor::Constant(4),
-            leaf_hash_params: (),
-            two_to_one_params: (),
-            soundness_type: SoundnessType::UniqueDecoding, /* TODO it was
-                                                            * SoundnessType::ConjectureList,
-                                                            * changed to unify with p3-playground
-                                                            * settings */
-            _pow_parameters: Default::default(),
+            initial_statement:     true,
+            security_level:        128,
+            pow_bits:              default_max_pow(num_variables, 1),
+            folding_factor:        FoldingFactor::Constant(4),
+            leaf_hash_params:      (),
+            two_to_one_params:     (),
+            soundness_type:        SoundnessType::ConjectureList,
+            _pow_parameters:       Default::default(),
             starting_log_inv_rate: 1,
         };
+
+        // Standardized parameters to align with p3-playground and Whirlaway defaults.
+        // let p3_pow_bits: usize = std::env::var("WHIR_POW_BITS")
+        //     .ok()
+        //     .and_then(|s| s.parse().ok())
+        //     .unwrap_or(20);
+        // let whir_params = ProtocolParameters {
+        //     initial_statement:     true,
+        //     security_level:        100,
+        //     pow_bits:              p3_pow_bits,
+        //     folding_factor:        FoldingFactor::Constant(4),
+        //     leaf_hash_params:      (),
+        //     two_to_one_params:     (),
+        //     soundness_type:        SoundnessType::UniqueDecoding,
+        //     _pow_parameters:       Default::default(),
+        //     starting_log_inv_rate: 1,
+        // };
         WhirConfig::new(mv_params, whir_params)
     }
 

@@ -140,14 +140,14 @@ fn keccakf1600_native(mut a: [u64; 25]) -> [u64; 25] {
     a
 }
 
-// Entry point: perform BATCH_SIZE independent Keccak-f permutations over simple generated states.
-fn main() {
-    let mut seed: u64 = 1;
-    for _ in 0..BATCH_SIZE {
+// Entry point: perform BATCH_SIZE independent Keccak-f permutations using external inputs.
+// The input array contains BATCH_SIZE consecutive 25-lane states.
+fn main(plains: [u64; 25 * BATCH_SIZE]) {
+    for i in 0..BATCH_SIZE {
         let mut st: [u64; 25] = [0; 25];
+        let base = i * 25;
         for j in 0..25 {
-            seed = seed + 1;
-            st[j] = seed;
+            st[j] = plains[base + j];
         }
         let _out = keccakf1600_native(st);
     }
