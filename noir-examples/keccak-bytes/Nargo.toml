@@ -1,0 +1,8 @@
+[package]
+name = "keccak_bytes"
+type = "bin"
+authors = [""]
+compiler_version = ">=0.22.0"
+
+[dependencies]
+# no deps
